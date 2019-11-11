@@ -6,3 +6,4 @@ dubzland_nodejs_prerequisites:
   - g++
   - libssl-dev
   - make
+  - apt-transport-https
