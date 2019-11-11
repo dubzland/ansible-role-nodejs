@@ -1,48 +1,81 @@
-Role Name
-=========
+# Dubzland: Node.js
+[![Gitlab pipeline status (self-hosted)](https://img.shields.io/gitlab/pipeline/jdubz/dubzland-nodejs?gitlab_url=https%3A%2F%2Fgit.dubzland.net)](https://git.dubzland.net/jdubz/dubzland-nodejs/pipelines)
 
-A brief description of the role goes here.
+Installs and configures Node.js and Yarn from source.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should
-be mentioned here. For instance, if the role uses the EC2 module, it may be a
-good idea to mention in this section that the boto package is required.
+Ansible 2.2 or higher.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+Available variables are listed below, along with their default values (see
+    `defaults/main.yml` for more info):
 
-Dependencies
-------------
+### dubzland_nodejs_version
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
+```yaml
+dubzland_nodejs_version: "12.13.0"
+```
 
-Example Playbook
-----------------
+Specific version of Node.js to install.
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
+### dubzland_nodejs_source_root
 
-    - hosts: servers
-      roles:
-         - { role: dubzland-nodejs, x: 42 }
+```yaml
+dubzland_nodejs_source_root: "/usr/local/src"
+```
 
-License
--------
+Directory used to store tarballs, as well as extract and build source tree.
 
-BSD
+### dubzland_nodejs_source_url
 
-Author Information
-------------------
+```yaml
+dubzland_nodejs_source_url: "https://nodejs.org/dist/v12.13.0/node-v12.13.0.tar.gz"
+```
 
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
+URL used to download Node.js source tarball.
+
+### dubzland_nodejs_source_sha256sum
+
+```yaml
+dubzland_nodejs_source_sha256sum: "2e5321e095fe673a3ab936cf77faf8c983cba62f27a9fbd00530a7edb739a040"
+```
+
+SHA256 checksum used to validate the downloaded source tarball.
+
+### dubzland_nodejs_yarn_key_url
+
+```yaml
+dubzland_nodejs_yarn_key_url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+```
+
+Url used to download the GPG key for the Yarn repository.
+
+### dubzland_nodejs_yarn_repo_url
+
+```yaml
+dubzland_nodejs_yarn_repo_url: "deb https://dl.yarnpkg.com/debian/ stable main"
+```
+
+Url added to package cache for the Yarn repository.
+
+## Dependencies
+
+None.
+
+## Example Playbook
+
+```yaml
+- hosts: servers
+  roles:
+    - role: dubzland-nodejs
+```
+
+## License
+
+MIT
+
+## Author
+
+* [Josh Williams](https://codingprime.com)
