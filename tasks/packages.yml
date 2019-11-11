@@ -1,0 +1,14 @@
+---
+- name: ensure packages incompatible with Node.js are not present
+  package:
+    name: "{{ dubzland_nodejs_conflicting_packages }}"
+    state: absent
+  tags:
+    - nodejs
+
+- name: ensure Node.js dependencies are installed
+  package:
+    name: "{{ dubzland_nodejs_prerequisites }}"
+    state: present
+  tags:
+    - nodejs

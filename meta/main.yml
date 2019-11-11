@@ -1,0 +1,15 @@
+dependencies: []
+
+galaxy_info:
+  author: t3hpr1m3
+  description: Node.js for Debian
+  company: Cedar House Labs
+  license: MIT
+  min_ansible_version: 2.2
+  platforms:
+    - name: Debian
+      versions:
+        - all
+
+  galaxy_tags:
+    - firewall

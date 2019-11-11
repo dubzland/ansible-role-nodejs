@@ -1,0 +1,8 @@
+---
+dubzland_nodejs_conflicting_packages:
+  - nodejs
+
+dubzland_nodejs_prerequisites:
+  - g++
+  - libssl-dev
+  - make

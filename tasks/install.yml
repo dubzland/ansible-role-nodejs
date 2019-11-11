@@ -1,0 +1,97 @@
+---
+- name: dump required version
+  debug:
+    var: dubzland_nodejs_version
+
+- name: dump Node.js source url
+  debug:
+    var: dubzland_nodejs_source_url
+
+- name: flag Node.js as needing install
+  set_fact:
+    _dubzland_nodejs_need_install: True
+
+- name: determine if Node.js is installed
+  stat:
+    path: /usr/local/bin/node
+  register: _dubzland_nodejs_binary
+
+- when: _dubzland_nodejs_binary.stat.exists
+  block:
+    - name: determine the version of Node.js installed
+      shell: |
+        /usr/local/bin/node --version | sed 's/^v\([0-9\.]*/\1/g'
+      register: _dubzland_nodejs_installed_version
+      changed_when: False
+
+    - name: dump installed Node.js version
+      debug:
+        var: _dubzland_nodejs_installed_version.stdout
+
+    - name: determine if installed Node.js is valid
+      set_fact:
+        _dubzland_nodejs_need_install: "{{ _dubzland_nodejs_installed_version.stdout != dubzland_nodejs_version }}"
+
+    - name: dump Node.js valid
+      debug:
+        var: _dubzland_nodejs_need_install
+
+    - name: uninstall the existing Node.js version
+      command: make uninstall
+      args:
+        chdir: "{{ dubzland_nodejs_source_root }}/node-v{{ _dubzland_nodejs_installed_version.stdout }}"
+      when: _dubzland_nodejs_need_install
+
+- when: _dubzland_nodejs_need_install
+  block:
+    - name: set the build directory for Node.js
+      set_fact:
+        _dubzland_nodejs_build_dir: "{{ dubzland_nodejs_source_root }}/node-v{{ dubzland_nodejs_version }}"
+
+    - name: download Node.js source
+      get_url:
+        url: "{{ dubzland_nodejs_source_url }}"
+        dest: "{{ dubzland_nodejs_source_root }}/node-v{{ dubzland_nodejs_version }}.tar.gz"
+        checksum: "sha256:{{ dubzland_nodejs_source_sha256sum }}"
+
+    - name: unpack Node.js source
+      unarchive:
+        src: "{{ dubzland_nodejs_source_root }}/node-v{{ dubzland_nodejs_version }}.tar.gz"
+        dest: "{{ dubzland_nodejs_source_root }}"
+        remote_src: True
+
+    - name: configure Node.js source
+      command: ./configure
+      args:
+        chdir: "{{ _dubzland_nodejs_build_dir }}"
+        creates: "{{ _dubzland_nodejs_build_dir }}/config.gypi"
+
+    - name: build Node.js
+      command: make
+      args:
+        chdir: "{{ _dubzland_nodejs_build_dir }}"
+        creates: "{{ _dubzland_nodejs_build_dir }}/node"
+
+    - name: install Node.js
+      command: make install
+      args:
+        chdir: "{{ _dubzland_nodejs_build_dir }}"
+        creates: "/usr/local/bin/node"
+
+- when: ansible_os_family == 'Debian'
+  block:
+    - name: ensure the Yarn repo key is present
+      apt_key:
+        url: "{{ dubzland_nodejs_yarn_key_url }}"
+        state: present
+
+    - name: ensure the Yarn repo is configured
+      apt_repository:
+        repo: "{{ dubzland_nodejs_yarn_repo_url }}"
+        state: present
+        update_cache: true
+
+    - name: ensure Yarn is installed
+      apt:
+        name: yarn
+        state: present
