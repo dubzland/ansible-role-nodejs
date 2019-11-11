@@ -1,12 +1,4 @@
 ---
-- name: dump required version
-  debug:
-    var: dubzland_nodejs_version
-
-- name: dump Node.js source url
-  debug:
-    var: dubzland_nodejs_source_url
-
 - name: flag Node.js as needing install
   set_fact:
     _dubzland_nodejs_need_install: True
@@ -24,17 +16,9 @@
       register: _dubzland_nodejs_installed_version
       changed_when: False
 
-    - name: dump installed Node.js version
-      debug:
-        var: _dubzland_nodejs_installed_version.stdout
-
     - name: determine if installed Node.js is valid
       set_fact:
         _dubzland_nodejs_need_install: "{{ _dubzland_nodejs_installed_version.stdout != dubzland_nodejs_version }}"
-
-    - name: dump Node.js valid
-      debug:
-        var: _dubzland_nodejs_need_install
 
     - name: uninstall the existing Node.js version
       command: make uninstall
