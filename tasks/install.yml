@@ -79,3 +79,4 @@
       apt:
         name: yarn
         state: present
+        install_recommends: no
