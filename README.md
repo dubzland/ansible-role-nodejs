@@ -44,6 +44,14 @@ dubzland_nodejs_source_sha256sum: "2e5321e095fe673a3ab936cf77faf8c983cba62f27a9f
 
 SHA256 checksum used to validate the downloaded source tarball.
 
+### dubzland_nodejs_build_jobs
+
+```yaml
+dubzland_nodejs_build_jobs: 4
+```
+
+Number of parallel make jobs to execute.
+
 ### dubzland_nodejs_yarn_key_url
 
 ```yaml

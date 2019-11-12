@@ -51,7 +51,7 @@
         creates: "{{ _dubzland_nodejs_build_dir }}/config.gypi"
 
     - name: build Node.js
-      command: make
+      command: "make -j {{ dubzland_nodejs_build_jobs }}"
       args:
         chdir: "{{ _dubzland_nodejs_build_dir }}"
         creates: "{{ _dubzland_nodejs_build_dir }}/node"

@@ -3,6 +3,7 @@ dubzland_nodejs_source_root: "/usr/local/src"
 dubzland_nodejs_version: "12.13.0"
 dubzland_nodejs_source_url: "https://nodejs.org/dist/v{{ dubzland_nodejs_version }}/node-v{{ dubzland_nodejs_version }}.tar.gz"
 dubzland_nodejs_source_sha256sum: "2e5321e095fe673a3ab936cf77faf8c983cba62f27a9fbd00530a7edb739a040"
+dubzland_nodejs_build_jobs: 4
 
 dubzland_nodejs_yarn_key_url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
 dubzland_nodejs_yarn_repo_url: "deb https://dl.yarnpkg.com/debian/ stable main"
