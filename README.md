@@ -1,5 +1,5 @@
 # Dubzland: Node.js
-[![Gitlab pipeline status (self-hosted)](https://img.shields.io/gitlab/pipeline/jdubz/dubzland-nodejs?gitlab_url=https%3A%2F%2Fgit.dubzland.net)](https://git.dubzland.net/jdubz/dubzland-nodejs/pipelines)
+[![Gitlab pipeline status (self-hosted)](https://git.dubzland.net/dubzland/ansible-role-nodejs/badges/master/pipeline.svg)](https://git.dubzland.net/dubzland/ansible-role-nodejs)
 
 Installs and configures Node.js and Yarn from source.
 
@@ -77,7 +77,7 @@ None.
 ```yaml
 - hosts: servers
   roles:
-    - role: dubzland-nodejs
+    - role: dubzland.nodejs
 ```
 
 ## License
