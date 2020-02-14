@@ -12,6 +12,9 @@ galaxy_info:
       versions:
         - stretch
         - buster
+    - name: Ubuntu
+      versions:
+        - bionic
 
   galaxy_tags:
     - nodejs
