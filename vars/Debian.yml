@@ -7,3 +7,4 @@ dubzland_nodejs_prerequisites:
   - libssl-dev
   - make
   - apt-transport-https
+  - python
