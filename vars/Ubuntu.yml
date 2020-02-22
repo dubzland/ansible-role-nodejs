@@ -1,10 +1,11 @@
 ---
 dubzland_nodejs_conflicting_packages:
   - nodejs
+  - libssl-dev
 
 dubzland_nodejs_prerequisites:
   - g++
-  - libssl-dev
+  - libssl1.0-dev
   - make
   - apt-transport-https
   - python
